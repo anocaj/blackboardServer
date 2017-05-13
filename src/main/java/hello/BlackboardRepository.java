@@ -7,4 +7,6 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface BlackboardRepository extends CrudRepository<Blackboard, Long> {
 
+    Iterable<Blackboard> findByName(String name);
+
 }

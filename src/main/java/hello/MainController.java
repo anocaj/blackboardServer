@@ -26,10 +26,27 @@ public class MainController {
 		blackboardRepository.save(n);
 		return "Saved";
 	}
-	
+
 	@GetMapping(path="/all")
 	public @ResponseBody Iterable<Blackboard> getAllBlackboards() {
-		// This returns a JSON or XML with the users
+		// This returns a JSON or XML with the Blackboards
 		return blackboardRepository.findAll();
+	}
+
+	@GetMapping(path="/create_blackboard") // Map ONLY GET Requests
+	public @ResponseBody String createBlackboard (@RequestParam String name) {
+		// @ResponseBody means the returned String is the response, not a view name
+		// @RequestParam means it is a parameter from the GET or POST request
+
+		Blackboard n = new Blackboard();
+		n.setName(name);
+		blackboardRepository.save(n);
+		return "Saved Blackboard";
+	}
+
+	@GetMapping(path="/read_blackboard")
+	public @ResponseBody Iterable<Blackboard> getBlackboard (@RequestParam String name){
+		// This returns a JSON or XML with the Blackboards
+		return blackboardRepository.findByName(name);
 	}
 }
