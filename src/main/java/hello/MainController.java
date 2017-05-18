@@ -105,12 +105,18 @@ public class MainController {
 	@GetMapping(path="/clear_blackboard")
 	public @ResponseBody String clearedBlackboard (@RequestParam String name){
 		// This returns a JSON or XML with the Blackboards
+		boolean existsBlackboard = blackboardRepository.existsByName(name);
+		if (existsBlackboard){
+			Blackboard n = blackboardRepository.findOneByName(name);
+			n.setMessage(null);
+			blackboardRepository.save(n);
+			return "cleared blackboard";
+		} else {
+
+			return "Blackboard " + name + " does not exists";
+		}
 
 
-		Blackboard n = blackboardRepository.findOneByName(name);
-		n.setMessage(null);
-		blackboardRepository.save(n);
-		return "cleared blackboard";
 	}
 
 
@@ -120,7 +126,7 @@ public class MainController {
 		// This returns a JSON or XML with the Blackboards
 
 		blackboardRepository.deleteBlackboardByName(name);
-		return "deleted blackboard";
+		return "Deleted blackboard " + name;
 	}
 
 	@GetMapping(path="/get_blackboard_status")
