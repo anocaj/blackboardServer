@@ -83,10 +83,24 @@ public class MainController {
 	}
 
 	@GetMapping(path="/read_blackboard")
-	public @ResponseBody Blackboard getBlackboard (@RequestParam String name){
-		// This returns a JSON or XML with the Blackboards
-		return blackboardRepository.findOneByName(name);
-	}
+	public @ResponseBody String getMessage (@RequestParam String name) {
+        //
+
+        boolean existsBlackboard = blackboardRepository.existsByName(name);
+        if (existsBlackboard) {
+            if (isEmptyBlackboard(name).equals("true")) {
+                return "Blackboard " + name + " is empty";
+            } else {
+                Blackboard b = blackboardRepository.findOneByName(name);
+                return b.getMessage();
+            }
+
+        } else {
+            return "Blackboard " + name + " does not exists";
+        }
+
+
+    }
 
 	@GetMapping(path="/clear_blackboard")
 	public @ResponseBody String clearedBlackboard (@RequestParam String name){
