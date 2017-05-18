@@ -5,11 +5,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+//TODO name zu primär - id löschen
 @Entity // This tells Hibernate to make a table out of this class
 public class Blackboard {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    private Integer id;
+//	@GeneratedValue(strategy=GenerationType.AUTO)
+// 	private Integer id;
 
     private String name;
 
@@ -19,13 +20,13 @@ public class Blackboard {
 
 
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+//	public void setId(Integer id) {
+//		this.id = id;
+//	}
 
-	public Integer getId() {
-		return id;
-	}
+//	public Integer getId() {
+//		return id;
+//	}
 
 	public String getName() {
 		return name;

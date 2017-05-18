@@ -33,6 +33,20 @@ public class MainController {
 		return blackboardRepository.findAll();
 	}
 
+	@GetMapping(path="/exists_blackboard")
+	public @ResponseBody String existsBlackboard (@RequestParam String name){
+		// This returns a JSON or XML with the Blackboards
+
+		boolean b = blackboardRepository.existsByName(name);
+		String s = "false";
+		if (b){
+			s = "true";
+		} else if (!b){
+			s = "false";
+		}
+		return s;
+	}
+
 	@GetMapping(path="/create_blackboard") // Map ONLY GET Requests
 	public @ResponseBody String createBlackboard (@RequestParam String name) {
 		// @ResponseBody means the returned String is the response, not a view name
@@ -44,9 +58,44 @@ public class MainController {
 		return "Saved Blackboard";
 	}
 
-	@GetMapping(path="/read_blackboard")
-	public @ResponseBody Iterable<Blackboard> getBlackboard (@RequestParam String name){
-		// This returns a JSON or XML with the Blackboards
-		return blackboardRepository.findByName(name);
+	@GetMapping(path="/display_blackboard") // Map ONLY GET Requests
+	public @ResponseBody String displayBlackboard (@RequestParam String name
+			, @RequestParam String message) {
+		// @ResponseBody means the returned String is the response, not a view name
+		// @RequestParam means it is a parameter from the GET or POST request
+
+		Blackboard n = new Blackboard();
+		n.setName(name);
+		n.setMessage(message);
+		blackboardRepository.save(n);
+		return "displayed blackboard";
 	}
+
+	@GetMapping(path="/read_blackboard")
+	public @ResponseBody Blackboard getBlackboard (@RequestParam String name){
+		// This returns a JSON or XML with the Blackboards
+		return blackboardRepository.findOneByName(name);
+	}
+
+	@GetMapping(path="/clear_blackboard")
+	public @ResponseBody String clearedBlackboard (@RequestParam String name){
+		// This returns a JSON or XML with the Blackboards
+
+
+		Blackboard n = blackboardRepository.findOneByName(name);
+		n.setMessage(null);
+		blackboardRepository.save(n);
+		return "cleared blackboard";
+	}
+
+
+
+	@GetMapping(path="/delete_blackboard")
+	public @ResponseBody String deletedBlackboard (@RequestParam String name){
+		// This returns a JSON or XML with the Blackboards
+
+		blackboardRepository.deleteBlackboardByName(name);
+		return "deleted blackboard";
+	}
+
 }
