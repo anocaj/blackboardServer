@@ -52,10 +52,16 @@ public class MainController {
 		// @ResponseBody means the returned String is the response, not a view name
 		// @RequestParam means it is a parameter from the GET or POST request
 
-		Blackboard n = new Blackboard();
-		n.setName(name);
-		blackboardRepository.save(n);
-		return "Saved Blackboard";
+		boolean existsBlackboard = blackboardRepository.existsByName(name);
+		if (existsBlackboard){
+			return "Blackboard " + name + " already exists";
+		} else {
+
+			Blackboard n = new Blackboard();
+			n.setName(name);
+			blackboardRepository.save(n);
+			return "Saved Blackboard";
+		}
 	}
 
 	@GetMapping(path="/display_blackboard") // Map ONLY GET Requests
@@ -63,12 +69,17 @@ public class MainController {
 			, @RequestParam String message) {
 		// @ResponseBody means the returned String is the response, not a view name
 		// @RequestParam means it is a parameter from the GET or POST request
+		boolean existsBlackboard = blackboardRepository.existsByName(name);
+		if (existsBlackboard){
+			Blackboard n = new Blackboard();
+			n.setName(name);
+			n.setMessage(message);
+			blackboardRepository.save(n);
+			return "displayed blackboard";
+		} else {
 
-		Blackboard n = new Blackboard();
-		n.setName(name);
-		n.setMessage(message);
-		blackboardRepository.save(n);
-		return "displayed blackboard";
+			return "Blackboard " + name + " does not exists";
+		}
 	}
 
 	@GetMapping(path="/read_blackboard")
@@ -98,4 +109,19 @@ public class MainController {
 		return "deleted blackboard";
 	}
 
+	@GetMapping(path="/get_blackboard_status")
+	public @ResponseBody String isEmptyBlackboard (@RequestParam String name){
+		// This returns a JSON or XML with the Blackboards
+		boolean existsBlackboard = blackboardRepository.existsByName(name);
+		if (existsBlackboard){
+			Blackboard b = blackboardRepository.findOneByName(name);
+			if (b.getMessage() == null){
+				return "true";
+			} else {
+				return "false";
+			}
+		} else {
+			return "Blackboard " + name + " does not exists";
+		}
+	}
 }
