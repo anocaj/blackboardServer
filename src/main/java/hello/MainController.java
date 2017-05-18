@@ -27,7 +27,7 @@ public class MainController {
 		return "Saved";
 	}
 
-	@GetMapping(path="/all")
+	@GetMapping(path="/show_blackboards")
 	public @ResponseBody Iterable<Blackboard> getAllBlackboards() {
 		// This returns a JSON or XML with the Blackboards
 		return blackboardRepository.findAll();
