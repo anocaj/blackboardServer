@@ -27,7 +27,7 @@ public class MainController {
 	}
 
 	@GetMapping(path = "/show_blackboards")
-	public @ResponseBody ResponseEntity  getAllBlackboards() {
+	public /*@ResponseBody*/ ResponseEntity  getAllBlackboards() {
 		// This returns a JSON or XML with the Blackboards
 		return new ResponseEntity(blackboardRepository.findAll(), HttpStatus.OK);
 	}
@@ -48,19 +48,19 @@ public class MainController {
 
 	//@GetMapping(path="/create_blackboard") // Map ONLY GET Requests
 	@PostMapping(path="/create_blackboard") //
-	public @ResponseBody String createBlackboard (@RequestParam String name) {
+	public ResponseEntity createBlackboard (@RequestParam String name) {
 		// @ResponseBody means the returned String is the response, not a view name
 		// @RequestParam means it is a parameter from the GET or POST request
 
 		boolean existsBlackboard = blackboardRepository.existsByName(name);
 		if (existsBlackboard){
-			return "Blackboard " + name + " already exists";
+			return new ResponseEntity("Blackboard " + name + " already exists", HttpStatus.OK);
 		} else {
 
 			Blackboard n = new Blackboard();
 			n.setName(name);
 			blackboardRepository.save(n);
-			return "Saved Blackboard"+ HttpStatus.OK;
+			return new ResponseEntity("Saved Blackboard", HttpStatus.OK);
 		}
 	}
 
