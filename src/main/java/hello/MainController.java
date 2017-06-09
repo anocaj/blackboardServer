@@ -47,26 +47,26 @@ public class MainController {
 	}
 
 	//@GetMapping(path="/create_blackboard") // Map ONLY GET Requests
-	@PostMapping(path="/create_blackboard") //
-	public ResponseEntity createBlackboard (@RequestParam String name) {
+	@PostMapping(path="/create_blackboard/{name}") //
+	public ResponseEntity createBlackboard (@PathVariable String name) {
 		// @ResponseBody means the returned String is the response, not a view name
 		// @RequestParam means it is a parameter from the GET or POST request
 
 		boolean existsBlackboard = blackboardRepository.existsByName(name);
 		if (existsBlackboard){
-			return new ResponseEntity("Blackboard " + name + " already exists", HttpStatus.OK);
+			return new ResponseEntity("Blackboard " + name + " already exists", HttpStatus.CONFLICT);
 		} else {
 
 			Blackboard n = new Blackboard();
 			n.setName(name);
 			blackboardRepository.save(n);
-			return new ResponseEntity("Saved Blackboard", HttpStatus.OK);
+			return new ResponseEntity("Saved Blackboard", HttpStatus.CREATED);
 		}
 	}
 
-	@PutMapping(path="/display_blackboard") // Map ONLY GET Requests
-	public @ResponseBody String displayBlackboard (@RequestParam String name
-			, @RequestParam String message) {
+	@PutMapping(path="/display_blackboard/{name}/{message}") // Map ONLY GET Requests
+	public @ResponseBody String displayBlackboard (@PathVariable String name
+			, @PathVariable String message) {
 		// @ResponseBody means the returned String is the response, not a view name
 		// @RequestParam means it is a parameter from the GET or POST request
 		boolean existsBlackboard = blackboardRepository.existsByName(name);
@@ -82,8 +82,8 @@ public class MainController {
 		}
 	}
 
-	@GetMapping(path="/read_blackboard")
-	public @ResponseBody String getMessage (@RequestParam String name) {
+	@GetMapping(path="/read_blackboard/{name}")
+	public @ResponseBody String getMessage (@PathVariable String name) {
         //
 
         boolean existsBlackboard = blackboardRepository.existsByName(name);
@@ -102,8 +102,8 @@ public class MainController {
 
     }
 
-	@GetMapping(path="/clear_blackboard")
-	public @ResponseBody String clearedBlackboard (@RequestParam String name){
+	@GetMapping(path="/clear_blackboard/{name}")
+	public @ResponseBody String clearedBlackboard (@PathVariable String name){
 		// This returns a JSON or XML with the Blackboards
 		boolean existsBlackboard = blackboardRepository.existsByName(name);
 		if (existsBlackboard){
@@ -121,16 +121,16 @@ public class MainController {
 
 
 
-	@DeleteMapping(path="/delete_blackboard")
-	public @ResponseBody String deletedBlackboard (@RequestParam String name){
+	@DeleteMapping(path="/delete_blackboard/{name}")
+	public @ResponseBody String deletedBlackboard (@PathVariable String name){
 		// This returns a JSON or XML with the Blackboards
 
 		blackboardRepository.deleteBlackboardByName(name);
 		return "Deleted blackboard " + name;
 	}
 
-	@GetMapping(path="/blackboard_status")
-	public @ResponseBody String isEmptyBlackboard (@RequestParam String name){
+	@GetMapping(path="/blackboard_status/{name}")
+	public @ResponseBody String isEmptyBlackboard (@PathVariable String name){
 		// This returns a JSON or XML with the Blackboards
 		boolean existsBlackboard = blackboardRepository.existsByName(name);
 		if (existsBlackboard){
