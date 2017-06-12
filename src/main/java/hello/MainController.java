@@ -58,6 +58,7 @@ public class MainController {
 		Log l = new Log();
 		l.setAddress(request.getRemoteAddr());
 		l.setAddress("post");
+		logRepository.save(l);
 
 		boolean existsBlackboard = blackboardRepository.existsByName(name);
 		if (existsBlackboard){
