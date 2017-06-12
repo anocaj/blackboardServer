@@ -1,19 +1,16 @@
 package hello;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
-//TODO name zu primär - id löschen
 @Entity // This tells Hibernate to make a table out of this class
 public class Blackboard {
-    @Id
+
 //	@GeneratedValue(strategy=GenerationType.AUTO)
 // 	private Integer id;
-
+	@Id
+	@Column(length = 64)
     private String name;
-
+	@Column(length = 255)
     private String message;
 
 

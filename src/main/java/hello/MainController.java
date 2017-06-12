@@ -47,8 +47,8 @@ public class MainController {
 	}
 
 	//@GetMapping(path="/create_blackboard") // Map ONLY GET Requests
-	@PostMapping(path="/create_blackboard/{name}") //
-	public ResponseEntity createBlackboard (@PathVariable String name) {
+	@PostMapping(path="/create_blackboard") //
+	public ResponseEntity createBlackboard (@RequestBody String name) {
 		// @ResponseBody means the returned String is the response, not a view name
 		// @RequestParam means it is a parameter from the GET or POST request
 
@@ -64,9 +64,9 @@ public class MainController {
 		}
 	}
 
-	@PutMapping(path="/display_blackboard/{name}/{message}") // Map ONLY GET Requests
+	@PutMapping(path="/display_blackboard/{name}") // Map ONLY GET Requests
 	public @ResponseBody String displayBlackboard (@PathVariable String name
-			, @PathVariable String message) {
+			, @RequestBody String message) {
 		// @ResponseBody means the returned String is the response, not a view name
 		// @RequestParam means it is a parameter from the GET or POST request
 		boolean existsBlackboard = blackboardRepository.existsByName(name);
