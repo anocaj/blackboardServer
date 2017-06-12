@@ -6,8 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-
 @Controller    // This means that this class is a Controller
 @RequestMapping(path="/blackboard/") // This means URL's start with /blackboard (after Application path)
 public class MainController {
@@ -36,17 +34,19 @@ public class MainController {
 	}
 
 	@GetMapping(path="/exists_blackboard/{name}")
-	public @ResponseBody String existsBlackboard (@PathVariable String name){
+	public ResponseEntity existsBlackboard (@PathVariable String name){
 		// This returns a JSON or XML with the Blackboards
 
 		boolean b = blackboardRepository.existsByName(name);
-		String s = "false";
+		String s = "Blackboard '" + name + "' does not exist.";
 		if (b){
-			s = "true";
+			s = "Blackboard '" + name + "' exists.";
 		} else if (!b){
-			s = "false";
+			s = "Blackboard '" + name + "' does not exist.";
 		}
-		return s;
+
+
+		return new ResponseEntity(s, HttpStatus.OK);
 	}
 
 	//@GetMapping(path="/create_blackboard") // Map ONLY GET Requests

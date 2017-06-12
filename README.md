@@ -1,4 +1,13 @@
 # blackboardServer
+
+##REST API
+
+| Methode   | Beschreibung | URI  | Body | Rückgabe  |
+| ------------- | ------------- | ------------- | ------------- | -------------  |
+| GET  | Zeige alle Blackboards  | blackboards/show_blackboards   | leer  | JSON Liste mit allen Blackboards als Objekte   |
+| Content Cell  | Content Cell  | Content Cell  | Content Cell  | leer  |
+
+
 Blackboards Management with mysql and rest
 
 https://spring.io/guides/gs/accessing-data-mysql/
@@ -26,3 +35,8 @@ mysql> grant all on blackboards.* to 'testuser'@'localhost'; -- Gives all the pr
 
 ## Run Spring Application
 
+./mvnw spring-boot:run
+
+## Build Jar
+
+./mvnw clean package
