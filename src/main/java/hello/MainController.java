@@ -51,13 +51,13 @@ public class MainController {
 
 	//@GetMapping(path="/create_blackboard") // Map ONLY GET Requests
 	@PostMapping(path="/create_blackboard") //
-	public ResponseEntity createBlackboard (@RequestBody String name, HttpServletRequest request) {
+	public ResponseEntity createBlackboard (@RequestBody String name) {
 		// @ResponseBody means the returned String is the response, not a view name
 		// @RequestParam means it is a parameter from the GET or POST request
 
 		Log l = new Log();
-		l.setAddress(request.getRemoteAddr());
-		l.setAddress("post");
+		l.setAddress("test");
+		l.setRequest("Post");
 		logRepository.save(l);
 
 		boolean existsBlackboard = blackboardRepository.existsByName(name);
