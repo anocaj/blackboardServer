@@ -31,8 +31,11 @@ public class MainController {
 
 	@GetMapping(path = "/show_blackboards")
 	public ResponseEntity  getAllBlackboards() {
-
-		return new ResponseEntity(blackboardRepository.findAll(), HttpStatus.OK);
+        if (blackboardRepository.count() == 0) {
+            return new ResponseEntity("No Blackboards exist", HttpStatus.CONFLICT);
+        }else {
+            return new ResponseEntity(blackboardRepository.findAll(), HttpStatus.OK);
+        }
 	}
 
 	@GetMapping(path="/exists_blackboard/{name}")
