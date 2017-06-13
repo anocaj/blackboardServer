@@ -14,6 +14,8 @@ public class MainController {
 
 	private BlackboardRepository blackboardRepository;
 
+	final static int MAXIMUM_ALLOWED_BLACKBOARDS = 40;
+
 
 	/*@PostMapping(path="/add") // Map ONLY GET Requests
 	public @ResponseBody String addNewBlackboard (@RequestParam String name
@@ -64,13 +66,12 @@ public class MainController {
 
 		boolean existsBlackboard = blackboardRepository.existsByName(name);
 
-		if (blackboardRepository.count() > 10) {
+		if (blackboardRepository.count() >= MAXIMUM_ALLOWED_BLACKBOARDS) {
 			return new ResponseEntity("Blackboard exceeds maximum number of allowed blackboards", HttpStatus.CONFLICT);
 		} else {
 			if (existsBlackboard){
 				return new ResponseEntity("Blackboard " + name + " already exists", HttpStatus.CONFLICT);
 			} else {
-
 				Blackboard n = new Blackboard();
 				n.setName(name);
 				blackboardRepository.save(n);
