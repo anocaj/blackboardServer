@@ -39,16 +39,14 @@ public class MainController {
 	public ResponseEntity existsBlackboard (@PathVariable String name){
 		// This returns a JSON or XML with the Blackboards
 
-		boolean b = blackboardRepository.existsByName(name);
-		String s = "Blackboard '" + name + "' does not exist.";
-		if (b){
-			s = "Blackboard '" + name + "' exists.";
-		} else if (!b){
-			s = "Blackboard '" + name + "' does not exist.";
+		boolean blackboard_exists = blackboardRepository.existsByName(name);
+
+		if (blackboard_exists){
+			return new ResponseEntity("Blackboard '" + name + "' exists.", HttpStatus.OK);
+		} else if (!blackboard_exists){
+			return new ResponseEntity("Blackboard '" + name + "' does not exist.", HttpStatus.OK);
 		}
-
-
-		return new ResponseEntity(s, HttpStatus.OK);
+		return new ResponseEntity("Error Occured in /exists_blackboard/{name} request.", HttpStatus.CONFLICT);
 	}
 
 	//@GetMapping(path="/create_blackboard") // Map ONLY GET Requests
@@ -79,21 +77,23 @@ public class MainController {
 	}
 
 	@PutMapping(path="/display_blackboard/{name}") // Map ONLY GET Requests
-	public @ResponseBody String displayBlackboard (@PathVariable String name
+	public ResponseEntity displayBlackboard (@PathVariable String name
 			, @RequestBody String message) {
 		// @ResponseBody means the returned String is the response, not a view name
 		// @RequestParam means it is a parameter from the GET or POST request
 		boolean existsBlackboard = blackboardRepository.existsByName(name);
+		String s = "";
 		if (existsBlackboard){
 			Blackboard n = new Blackboard();
 			n.setName(name);
 			n.setMessage(message);
 			blackboardRepository.save(n);
-			return "displayed blackboard";
+			return new ResponseEntity("Blackboard is successfully displayed.",HttpStatus.CREATED);
 		} else {
 
-			return "Blackboard " + name + " does not exists";
+			return new ResponseEntity("Blackboard " + name + " does not exists",HttpStatus.CONFLICT);
 		}
+
 	}
 
 	@GetMapping(path="/read_blackboard/{name}")
@@ -127,7 +127,7 @@ public class MainController {
 			return "cleared blackboard";
 		} else {
 
-			return "Blackboard " + name + " does not exists";
+			return "Blackboard " + name + " does not exists.";
 		}
 
 
@@ -140,7 +140,7 @@ public class MainController {
 		// This returns a JSON or XML with the Blackboards
 
 		blackboardRepository.deleteBlackboardByName(name);
-		return "Deleted blackboard " + name;
+		return "Deleted blackboard '" + name +"'.";
 	}
 
 	@GetMapping(path="/blackboard_status/{name}")
