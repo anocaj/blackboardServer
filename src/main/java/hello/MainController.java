@@ -142,18 +142,20 @@ public class MainController {
 	}
 
 	@GetMapping(path="/blackboard_status/{name}")
-	public @ResponseBody String isEmptyBlackboard (@PathVariable String name){
+	public ResponseEntity isEmptyBlackboard (@PathVariable String name){
 		// This returns a JSON or XML with the Blackboards
 		boolean existsBlackboard = blackboardRepository.existsByName(name);
+		String s;
 		if (existsBlackboard){
 			Blackboard b = blackboardRepository.findOneByName(name);
 			if (b.getMessage() == null){
-				return "true";
+				s = "Blackboard '"+ name+ "' has no message.";
 			} else {
-				return "false";
+				s = "Blackboard '"+name+ "' contains a message.";
 			}
 		} else {
-			return "Blackboard " + name + " does not exists";
+			return new ResponseEntity("Blackboard '"+ name+ "' does not exist.", HttpStatus.CONFLICT);
 		}
+		return new ResponseEntity(s, HttpStatus.OK);
 	}
 }

@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 public interface BlackboardRepository extends CrudRepository<Blackboard, Long> {
 
-    int MAXIMUM_BLACKBOARD_NUMBER = 15;
+//    int MAXIMUM_BLACKBOARD_NUMBER = 15;
 
     @Transactional
     Blackboard findOneByName(String name);
