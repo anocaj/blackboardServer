@@ -1,6 +1,6 @@
 # blackboardServer
 Blackboards Management with MySQL und REST   
-:ship-it:
+:shipit:
 ## REST API
 
 | Methode   | Beschreibung | URI  | Body | Rückgabe  |
