@@ -1,5 +1,5 @@
 # blackboardServer
-Blackboards Management with MySQL und REST
+Blackboards Management with MySQL und REST :ship-it:
 ## REST API
 
 | Methode   | Beschreibung | URI  | Body | Rückgabe  |
@@ -59,3 +59,4 @@ Um den Vorgang zu erleichtern kann einfach mittels Maven eine JAR Datei erstellt
     ```
     ./mvnw clean package
     ``
+    

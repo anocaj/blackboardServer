@@ -19,4 +19,5 @@ public interface BlackboardRepository extends CrudRepository<Blackboard, Long> {
     @Query("SELECT CASE WHEN COUNT(b) > 0 THEN true ELSE false END FROM Blackboard b WHERE b.name = :name")
     boolean existsByName(@Param("name") String name);
 
+
 }
