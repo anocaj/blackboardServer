@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 public interface BlackboardRepository extends CrudRepository<Blackboard, Long> {
 
-    final static int MAXIMUM_BLACKBOARD_NUMBER = 15;
+    int MAXIMUM_BLACKBOARD_NUMBER = 15;
 
     @Transactional
     Blackboard findOneByName(String name);
@@ -21,7 +21,7 @@ public interface BlackboardRepository extends CrudRepository<Blackboard, Long> {
     @Query("SELECT CASE WHEN COUNT(b) > 0 THEN true ELSE false END FROM Blackboard b WHERE b.name = :name")
     boolean existsByName(@Param("name") String name);
 
-    @Query("SELECT CASE WHEN COUNT(b) > MAXIMUM_BLACKBOARD_NUMBER THEN true ELSE false END FROM Blackboard b")
-    boolean exceedsBlackboardLimit();
+//    @Query("SELECT CASE WHEN COUNT(b) > MAXIMUM_BLACKBOARD_NUMBER THEN true ELSE false END FROM Blackboard b")
+//    boolean exceedsBlackboardLimit();
 
 }

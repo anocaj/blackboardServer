@@ -62,9 +62,10 @@ public class MainController {
 
 		boolean existsBlackboard = blackboardRepository.existsByName(name);
 
-		if (blackboardRepository.exceedsBlackboardLimit()) {
+		/*if (blackboardRepository.exceedsBlackboardLimit()) {
 			return new ResponseEntity("Blackboard exceeds maximum number of allowed blackboards", HttpStatus.CONFLICT);
-		} else if (existsBlackboard){
+		} else*/
+		if (existsBlackboard){
 			return new ResponseEntity("Blackboard " + name + " already exists", HttpStatus.CONFLICT);
 		} else {
 
