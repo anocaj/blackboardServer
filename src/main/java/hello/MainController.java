@@ -62,7 +62,7 @@ public class MainController {
 			return new ResponseEntity<>("Blackboard exceeds maximum number ("+MAXIMUM_ALLOWED_BLACKBOARDS+") of allowed blackboards", HttpStatus.CONFLICT);
 		} else {
 			if (existsBlackboard){
-				return new ResponseEntity<>("Blackboard " + name + " already exists", HttpStatus.CONFLICT);
+				return new ResponseEntity<>("Blackboard " + name + " already exist", HttpStatus.CONFLICT);
 			} else {
 				Blackboard n = new Blackboard();
 				n.setName(name);
@@ -89,7 +89,7 @@ public class MainController {
 			blackboardRepository.save(n);
 			return new ResponseEntity<>("Blackboard was successfully displayed.",HttpStatus.CREATED);
 		} else {
-			return new ResponseEntity<>("Blackboard " + name + " does not exists",HttpStatus.CONFLICT);
+			return new ResponseEntity<>("Blackboard " + name + " does not exist",HttpStatus.CONFLICT);
 		}
 	}
 
@@ -107,15 +107,15 @@ public class MainController {
         	if (b.getMessage() == null) {
                 return new ResponseEntity<>("Blackboard " + name + " is empty", HttpStatus.CONFLICT);
             } else {
-                return new ResponseEntity<>("The requested message is:" + b.getMessage(), HttpStatus.OK);
+                return new ResponseEntity<>("The requested message is: " + b.getMessage(), HttpStatus.OK);
             }
         } else {
-            return new ResponseEntity<>("Blackboard " + name + " does not exists", HttpStatus.CONFLICT);
+            return new ResponseEntity<>("Blackboard " + name + " does not exist", HttpStatus.CONFLICT);
         }
     }
 
 	// Clears the message of a specific blackboard
-	@GetMapping(path="/clear_blackboard/{name}")
+	@PutMapping(path="/clear_blackboard/{name}")
 	public ResponseEntity<String> clearedBlackboard (@PathVariable String name){
 		// This returns a ResponseEntity which includes a String and the HttpStatus
 		// Gets the name from the path
@@ -129,7 +129,7 @@ public class MainController {
 			blackboardRepository.save(n);
 			return new ResponseEntity<>("Cleared blackboard: '"+name+"'", HttpStatus.OK);
 		} else {
-			return new ResponseEntity<>("Blackboard '" + name + "' does not exists",HttpStatus.CONFLICT);
+			return new ResponseEntity<>("Blackboard '" + name + "' does not exist",HttpStatus.CONFLICT);
 		}
 	}
 
@@ -146,7 +146,7 @@ public class MainController {
 			blackboardRepository.deleteBlackboardByName(name);
 			return new ResponseEntity<>("Deleted blackboard '" + name +"'.",HttpStatus.OK);
 		} else {
-			return new ResponseEntity<>("Blackboard '" + name + "' does not exists",HttpStatus.CONFLICT);
+			return new ResponseEntity<>("Blackboard '" + name + "' does not exist",HttpStatus.CONFLICT);
 		}
 	}
 
