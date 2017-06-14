@@ -37,7 +37,7 @@ public class MainController {
 		// Gets the name from the path
 
 		if(name.length()>64){
-			return new ResponseEntity<>("The size limit of the blackboard name is 64 characters",HttpStatus.CONFLICT);
+			return new ResponseEntity<>("The size limit of the blackboard name was exceeded (64 characters)",HttpStatus.CONFLICT);
 		}
 
 		boolean blackboard_exists = blackboardRepository.existsByName(name);
@@ -54,7 +54,7 @@ public class MainController {
 		// This returns a ResponseEntity which includes a String and the HttpStatus
 		// Gets the name from the body
 		if(name.length()>64){
-			return new ResponseEntity<>("The size limit of the blackboard name is 64 characters",HttpStatus.CONFLICT);
+			return new ResponseEntity<>("The size limit of the blackboard name was exceeded (64 characters)",HttpStatus.CONFLICT);
 		}
 
 		boolean existsBlackboard = blackboardRepository.existsByName(name);
@@ -78,7 +78,7 @@ public class MainController {
 		// This returns a ResponseEntity which includes a String and the HttpStatus
 		// Gets the name from the path and the message from the body
 		if(name.length()>64 || message.length()>255){
-			return new ResponseEntity<>("The size limit of the blackboard name is 64 characters\nThe size limit of the blackboard message is 255 characters",HttpStatus.CONFLICT);
+			return new ResponseEntity<>("The size limit of the blackboard name was exceeded (64 characters)\n Or the size limit of the blackboard message was exceeded (255 characters)",HttpStatus.CONFLICT);
 		}
 
 		boolean existsBlackboard = blackboardRepository.existsByName(name);
@@ -99,7 +99,7 @@ public class MainController {
 		// This returns a ResponseEntity which includes a String and the HttpStatus
 		// Gets the name from the path
 		if(name.length()>64){
-			return new ResponseEntity<>("The size limit of the blackboard name is 64 characters",HttpStatus.CONFLICT);
+			return new ResponseEntity<>("The size limit of the blackboard name was exceeded (64 characters)",HttpStatus.CONFLICT);
 		}
         boolean existsBlackboard = blackboardRepository.existsByName(name);
         if (existsBlackboard) {
@@ -120,7 +120,7 @@ public class MainController {
 		// This returns a ResponseEntity which includes a String and the HttpStatus
 		// Gets the name from the path
 		if(name.length()>64){
-			return new ResponseEntity<>("The size limit of the blackboard name is 64 characters",HttpStatus.CONFLICT);
+			return new ResponseEntity<>("The size limit of the blackboard name was exceeded (64 characters)",HttpStatus.CONFLICT);
 		}
 		boolean existsBlackboard = blackboardRepository.existsByName(name);
 		if (existsBlackboard){
@@ -139,7 +139,7 @@ public class MainController {
 		// This returns a ResponseEntity which includes a String and the HttpStatus
 		// Gets the name from the path
 		if(name.length()>64){
-			return new ResponseEntity<>("The size limit of the blackboard name is 64 characters",HttpStatus.CONFLICT);
+			return new ResponseEntity<>("The size limit of the blackboard name was exceeded (64 characters)",HttpStatus.CONFLICT);
 		}
 		boolean existsBlackboard = blackboardRepository.existsByName(name);
 		if (existsBlackboard){
@@ -156,7 +156,7 @@ public class MainController {
 		// This returns a ResponseEntity which includes a String and the HttpStatus
 		// Gets the name from the path
 		if(name.length()>64){
-			return new ResponseEntity<>("The size limit of the blackboard name is 64 characters",HttpStatus.CONFLICT);
+			return new ResponseEntity<>("The size limit of the blackboard name was exceeded (64 characters)",HttpStatus.CONFLICT);
 		}
 		boolean existsBlackboard = blackboardRepository.existsByName(name);
 		if (existsBlackboard){
