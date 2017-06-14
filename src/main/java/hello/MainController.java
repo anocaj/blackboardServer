@@ -6,6 +6,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
+
 @Controller    // This means that this class is a Controller
 @RequestMapping(path="/blackboard/") // This means URL's start with /blackboard (after Application path)
 public class MainController {
@@ -53,8 +56,16 @@ public class MainController {
 	public ResponseEntity createBlackboard (@RequestBody String name) {
 		// This returns a ResponseEntity which includes a String and the HttpStatus
 		// Gets the name from the body
-		if(name.length()>64){
-			return new ResponseEntity<>("The size limit of the blackboard name was exceeded (64 characters)",HttpStatus.BAD_REQUEST);
+
+		Pattern namePattern = Pattern.compile("[^;:@=?&]*");
+		Matcher nameMatcher = namePattern.matcher(name);
+
+		if (nameMatcher.matches()) {
+			if (name.length() > 64) {
+				return new ResponseEntity<>("The size limit of the blackboard name was exceeded (64 characters)", HttpStatus.BAD_REQUEST);
+			}
+		} else {
+			return new ResponseEntity<>("Illegal character in name (; : @ = ? &)", HttpStatus.BAD_REQUEST);
 		}
 
 		boolean existsBlackboard = blackboardRepository.existsByName(name);
